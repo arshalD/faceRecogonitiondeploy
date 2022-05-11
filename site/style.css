@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Display:wght@100;300;400&display=swap');
+*{font-family: 'Noto Sans Display', sans-serif;}
+body{
+    margin: 0;
+    padding: 0;
+    /*background-image: url(img/fundo2.jpg);*/
+    background-color: #fff;
+    background-size: cover;
+    
+}
+.login{
+    width: 320px;
+    height: 420px;
+    border-radius: 80px 0px 80px 0px;
+    color: #fff;
+    background-color: rgba(0,0,5,0.8);
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    padding: 60px 28px;
+}
+
+.usuario{
+    border-radius: 50%;
+    position: absolute;
+    top: -65px;
+    left: 95px;
+
+   
+}
+
+h1{
+    margin: 0;
+    padding-top: 0;
+    padding-left: 0;
+    padding-bottom: 20px;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    text-align: center;
+  font-weight:400;
+    font-size: 25px;
+}
+
+.login p {
+    margin: 0;
+    margin-top: 39px;
+    padding: 0;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+.login input{
+    width: 100%;
+    margin-bottom: 21px;
+}
+
+.login input[type="text"], input[type="password"]{
+    border: none;
+    border-bottom: 2px solid rgb(212, 105, 55);
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: #fff;
+  font-weight: 300;
+    font-size: 16px;
+}
+
+.login input[type="submit"]{
+    border:none;
+    outline: none;
+    height: 35px;
+    color: #000;
+    background: #fff;
+    border-radius: 5px;
+    transition: 0.2s;
+  letter-spacing: 2px;
+  font-weight: 500;
+  
+}
+
+.login input[type="submit"]:hover {
+    cursor: pointer;
+    background: rgb(212, 105, 55);
+    transition: 0.2s;
+  color: #fff;
+}
+
+.login a{
+    font-weight: 300;
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 30px;
+    color: #4b4b4b;
+    transition: 0.1s;
+    letter-spacing: 1px;
+}
+
+.login a:hover {
+    transition: 0.2s;
+    color: #fff;
+}

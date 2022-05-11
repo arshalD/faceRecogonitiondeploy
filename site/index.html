@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script defer src="face-api.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content: blob:">
+  <title>Face Recognition</title>
+</head>
+<body>
+  <div class="login">
+    <img src="main-icon.png" class="usuario" width="120" heigth="120" alt="">
+    <h1>Login</h1>
+    <form action="javascript:detectFace()">
+        <p>Username</p>
+        <input type="text" name="" placeholder="Enter Username" id="username">
+        <input type="submit" name="" value="Verify" id="verify-btn" />
+        <a href="#">Register</a><br>
+    </form>
+ </div>    
+  <div id="videoContainer">
+    <video autoplay="true" id="videoElement" style="display:none"></video>
+    <canvas id="canvas" width="640" height="480" ></canvas>
+    <img id="img" style="display:none">
+  <!-- <input type="file" id="imageUpload"> -->
+</body>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column
+  }
+
+  canvas {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .hidden {
+    visibility: hidden;
+  }
+</style>
+<script  src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+<script  src="https://www.gstatic.com/firebasejs/8.2.10/firebase-firestore.js"></script>
+<script src="./firebaseInit.js"></script>
+<script src="recogonition.js" type="module"></script> 
+<script defer src="script.js"></script>
+</html>
