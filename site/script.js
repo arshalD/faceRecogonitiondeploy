@@ -1,42 +1,55 @@
 const imageUpload = document.getElementById('imageUpload')
 // var imagetotest = require('./test_images/1.png')
+var faceMatcherInterval;
 
-async function start(photo,username) {
-  console.log(photo)
+async function faceMatcherFunc(faceMatcher,photo){  
   const container = document.createElement('div')
-  container.style.position = 'relative'
-  document.body.append(container)
-  const labeledFaceDescriptors = await loadLabeledImages(username)
-  console.log(labeledFaceDescriptors)
-  const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.4)
-  console.log(faceMatcher)
   let image
   let canvas
   console.log('Loaded')
     if (image) image.remove()
     if (canvas) canvas.remove()
 
-    console.log(imageUpload.files[0])
-    image = await faceapi.bufferToImage(imageUpload.files[0])
-    console.log(typeof image)
-    console.log(image)
-    container.append(image)
-    canvas = faceapi.createCanvasFromMedia(image)
+    // console.log(imageUpload.files[0])
+    // image = await faceapi.bufferToImage(imageUpload.files[0])
+    // console.log(typeof image)
+    // console.log(image)
+    console.log(photo)
+    // container.append(image)
+    canvas = faceapi.createCanvasFromMedia(photo)
     container.append(canvas)
-    const displaySize = { width: image.width, height: image.height }
+    const displaySize = { width: photo.width, height: photo.height }
     faceapi.matchDimensions(canvas, displaySize)
     const detections = await faceapi.detectAllFaces(photo).withFaceLandmarks().withFaceDescriptors()
     const resizedDetections = faceapi.resizeResults(detections, displaySize)
     const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor))
     results.forEach((result, i) => {
       console.log(result)
+      alert(result.toString())
       const box = resizedDetections[i].detection.box
       const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() })
       drawBox.draw(canvas)
     })
 }
 
-function loadLabeledImages(username) {
+async function start(photo,username) {
+  console.log(photo)
+  const container = document.createElement('div')
+  container.style.position = 'relative'
+  document.body.append(container)
+  const labeledFaceDescriptors = await loadLabeledImages(username,photo)
+  const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.4)
+  console.log(faceMatcher)
+  console.log('faceMatcher')
+  faceMatcherInterval = setInterval(()=>{
+    console.log('interval running')
+    if (labeledFaceDescriptors){
+      // faceMatcherFunc(faceMatcher)
+    }
+  },100)
+}
+
+function loadLabeledImages(username,photo) {
   const labels = [username]
   let docRef = db.collection("users").doc(username);
   docRef.get().then((doc) => {
@@ -61,7 +74,6 @@ function loadLabeledImages(username) {
           const image = document.createElement('img')
           image.src = imageObjectURL
   
-
           const detections = await faceapi.detectSingleFace(image).withFaceLandmarks().withFaceDescriptor()
           descriptions.push(detections.descriptor)
       }
@@ -70,6 +82,9 @@ function loadLabeledImages(username) {
       }
       }
       console.log(label,descriptions)
+      let labeledFaceDescriptors  = new faceapi.LabeledFaceDescriptors(label,descriptions)
+      let faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.4)
+      faceMatcherFunc(faceMatcher,photo)
       return new faceapi.LabeledFaceDescriptors(label, descriptions)
           })
       )
